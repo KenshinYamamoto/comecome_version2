@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './screens/title_screen.dart';
 import './screens/take_hand_screen.dart';
+import './screens/drink_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TakeHandScreen(),
+      home: const DrinkScreen(),
     );
   }
 }
