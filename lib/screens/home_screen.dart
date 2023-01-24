@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/how_to_tab.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -85,7 +87,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Icon(Icons.arrow_forward_ios),
+                  const Icon(Icons.arrow_forward_ios),
                 ],
               ),
             ),
