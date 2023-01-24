@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import '../models/take_hand_model.dart';
+import '../models/drink_model.dart';
 
-class TakeHandScreen extends StatefulWidget {
-  const TakeHandScreen({super.key});
+class DrinkScreen extends StatefulWidget {
+  const DrinkScreen({super.key});
 
   @override
-  State<TakeHandScreen> createState() => _TakeHandScreenState();
+  State<DrinkScreen> createState() => _DrinkScreenState();
 }
 
-class _TakeHandScreenState extends State<TakeHandScreen> {
+class _DrinkScreenState extends State<DrinkScreen> {
   int count = 0;
 
   @override
@@ -60,13 +60,13 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
       appBar: AppBar(
         leading: const Icon(Icons.abc), // TODO 画像の表示
         title: Text(
-          count % 2 == 0 ? '取って欲しい①' : '取って欲しい②',
+          count % 2 == 0 ? '温かい飲み物' : '冷たい飲み物',
           style: const TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.deepOrange[300],
+        backgroundColor: count % 2 == 0 ? Colors.red : Colors.blue,
         actions: const [
           Icon(Icons.abc), // TODO 画像の表示
         ],
@@ -74,9 +74,13 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
       body: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/CommonParts/back_color01.png'),
+                image: count % 2 == 0
+                    ? const AssetImage(
+                        'assets/images/CommonParts/back_color01.png')
+                    : const AssetImage(
+                        'assets/images/ColdDrinkScreen/back_color02.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -116,8 +120,8 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
                                   FittedBox(
                                     child: Text(
                                       count % 2 == 0
-                                          ? TakeHandModel.takeHandList1[i]
-                                          : TakeHandModel.takeHandList2[i],
+                                          ? DrinkModel.hotDrinkList[i]
+                                          : DrinkModel.coldDrinkList[i],
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: deviceWidth * 0.1,
@@ -175,7 +179,7 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
                                 Icon(Icons.abc), // TODO 画像の表示
                                 FittedBox(
                                   child: Text(
-                                    count % 2 == 0 ? '次へ' : '前へ',
+                                    count % 2 == 0 ? '冷たい' : '温かい',
                                     style: TextStyle(
                                       fontSize: deviceHeight * 0.03,
                                       fontWeight: FontWeight.bold,
