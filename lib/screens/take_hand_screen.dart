@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../models/take_hand_model.dart';
+import './home_screen.dart';
+import './memo_screen.dart';
 
 class TakeHandScreen extends StatefulWidget {
+  static const routeName = '/take-hand';
   const TakeHandScreen({super.key});
 
   @override
@@ -19,7 +22,7 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
         MediaQuery.of(context).padding.top;
     final deviceWidth = MediaQuery.of(context).size.width;
 
-    Widget onGenerateTabCard(String titleText) {
+    Widget onGenerateTabCard(String titleText, VoidCallback tapFunction) {
       return SizedBox(
         height: deviceHeight * 0.1,
         width: deviceWidth * 0.4,
@@ -29,9 +32,8 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: InkWell(
-            // TODO 押した時の処理を追加
-            onTap: () {},
-            onLongPress: () {},
+            onTap: () => tapFunction(),
+            onLongPress: () => tapFunction(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Row(
@@ -200,8 +202,14 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      onGenerateTabCard('トップ'),
-                      onGenerateTabCard('手書き'),
+                      onGenerateTabCard('トップ', () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            HomeScreen.routeName, (route) => false);
+                      }),
+                      onGenerateTabCard('手書き', () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            MemoScreen.routeName, (route) => false);
+                      }),
                     ],
                   ),
                 ),

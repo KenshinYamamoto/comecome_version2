@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-class HowToTab extends StatelessWidget {
-  final bool isHowToTab;
-  const HowToTab({
+class BottomTab extends StatelessWidget {
+  const BottomTab({
     super.key,
-    required this.isHowToTab,
   });
 
   @override
@@ -52,41 +50,44 @@ class HowToTab extends StatelessWidget {
       );
     }
 
-    return Column(
-      children: [
-        Container(
-          height: deviceHeight * 0.12,
-          color: Colors.deepOrange[300],
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                onGenerateTabCard('使い方'),
-                onGenerateTabCard('手書き'),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          height: deviceHeight * 0.03,
-          color: Colors.deepOrange[300],
-          child: const Align(
-            alignment: Alignment.bottomRight,
+    return SizedBox(
+      height: deviceHeight * 0.15,
+      child: Column(
+        children: [
+          Container(
+            height: deviceHeight * 0.12,
+            color: Colors.deepOrange[300],
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 35),
-              child: Text(
-                'produced by comecome',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                ),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  onGenerateTabCard('トップ'),
+                  onGenerateTabCard('手書き'),
+                ],
               ),
             ),
           ),
-        ),
-      ],
+          Container(
+            height: deviceHeight * 0.03,
+            color: Colors.deepOrange[300],
+            child: const Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 35),
+                child: Text(
+                  'produced by comecome',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

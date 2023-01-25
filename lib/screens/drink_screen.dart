@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../screens/home_screen.dart';
+import '../screens/memo_screen.dart';
 import '../models/drink_model.dart';
 
 class DrinkScreen extends StatefulWidget {
+  static const routeName = '/drink';
   const DrinkScreen({super.key});
 
   @override
@@ -19,7 +22,7 @@ class _DrinkScreenState extends State<DrinkScreen> {
         MediaQuery.of(context).padding.top;
     final deviceWidth = MediaQuery.of(context).size.width;
 
-    Widget onGenerateTabCard(String titleText) {
+    Widget onGenerateTabCard(String titleText, VoidCallback tapFunction) {
       return SizedBox(
         height: deviceHeight * 0.1,
         width: deviceWidth * 0.4,
@@ -29,9 +32,8 @@ class _DrinkScreenState extends State<DrinkScreen> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: InkWell(
-            // TODO 押した時の処理を追加
-            onTap: () {},
-            onLongPress: () {},
+            onTap: () => tapFunction(),
+            onLongPress: () => tapFunction(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Row(
@@ -204,8 +206,14 @@ class _DrinkScreenState extends State<DrinkScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      onGenerateTabCard('トップ'),
-                      onGenerateTabCard('手書き'),
+                      onGenerateTabCard('トップ', () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            HomeScreen.routeName, (route) => false);
+                      }),
+                      onGenerateTabCard('手書き', () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            MemoScreen.routeName, (route) => false);
+                      }),
                     ],
                   ),
                 ),

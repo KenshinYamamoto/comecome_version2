@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../models/health_management_model.dart';
+import './home_screen.dart';
+import './memo_screen.dart';
 
 class HealthManagementScreen extends StatelessWidget {
+  static const routeName = '/health-management';
   const HealthManagementScreen({super.key});
 
   @override
@@ -12,7 +15,7 @@ class HealthManagementScreen extends StatelessWidget {
         MediaQuery.of(context).padding.top;
     final deviceWidth = MediaQuery.of(context).size.width;
 
-    Widget onGenerateTabCard(String titleText) {
+    Widget onGenerateTabCard(String titleText, VoidCallback tapFunction) {
       return SizedBox(
         height: deviceHeight * 0.1,
         width: deviceWidth * 0.4,
@@ -22,9 +25,8 @@ class HealthManagementScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: InkWell(
-            // TODO 押した時の処理を追加
-            onTap: () {},
-            onLongPress: () {},
+            onTap: () => tapFunction(),
+            onLongPress: () => tapFunction(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Row(
@@ -375,37 +377,48 @@ class HealthManagementScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                height: deviceHeight * 0.12,
-                color: Colors.deepOrange[300],
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      onGenerateTabCard('トップ'),
-                      onGenerateTabCard('手書き'),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                height: deviceHeight * 0.03,
-                color: Colors.deepOrange[300],
-                child: const Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5, horizontal: 35),
-                    child: Text(
-                      'produced by comecome',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
+              Column(
+                children: [
+                  Container(
+                    height: deviceHeight * 0.12,
+                    color: Colors.deepOrange[300],
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          onGenerateTabCard('トップ', () {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                HomeScreen.routeName, (route) => false);
+                          }),
+                          onGenerateTabCard('手書き', () {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                MemoScreen.routeName, (route) => false);
+                          }),
+                        ],
                       ),
                     ),
                   ),
-                ),
+                  Container(
+                    height: deviceHeight * 0.03,
+                    color: Colors.deepOrange[300],
+                    child: const Align(
+                      alignment: Alignment.bottomRight,
+                      child: Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 35),
+                        child: Text(
+                          'produced by comecome',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
