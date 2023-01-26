@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../screens/home_screen.dart';
 import '../screens/memo_screen.dart';
 import '../models/drink_model.dart';
+import '../widgets/text_to_speech.dart';
 
 class DrinkScreen extends StatefulWidget {
   static const routeName = '/drink';
@@ -102,15 +103,22 @@ class _DrinkScreenState extends State<DrinkScreen> {
                           elevation: 5,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
-                            side: const BorderSide(
-                              color: Colors.blue,
+                            side: BorderSide(
+                              color: count % 2 == 0 ? Colors.red : Colors.blue,
                               width: 5,
                             ),
                           ),
                           child: InkWell(
-                            // TODO 押した時の処理を追加
-                            onTap: () {},
-                            onLongPress: () {},
+                            onTap: () {
+                              TextToSpeech.speak(
+                                '${count % 2 == 0 ? DrinkModel.hotDrinkList[i] : DrinkModel.coldDrinkList[i]}が飲みたいです',
+                              );
+                            },
+                            onLongPress: () {
+                              TextToSpeech.speak(
+                                '${count % 2 == 0 ? DrinkModel.hotDrinkList[i] : DrinkModel.coldDrinkList[i]}が飲みたいです',
+                              );
+                            },
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15),
@@ -162,7 +170,6 @@ class _DrinkScreenState extends State<DrinkScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: InkWell(
-                          // TODO 押した時の処理を追加
                           onTap: () {
                             setState(() {
                               count++;

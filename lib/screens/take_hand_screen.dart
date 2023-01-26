@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/take_hand_model.dart';
+import '../widgets/text_to_speech.dart';
 import './home_screen.dart';
 import './memo_screen.dart';
 
@@ -104,9 +105,14 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
                             ),
                           ),
                           child: InkWell(
-                            // TODO 押した時の処理を追加
-                            onTap: () {},
-                            onLongPress: () {},
+                            onTap: () {
+                              TextToSpeech.speak(
+                                  '${count % 2 == 0 ? TakeHandModel.takeHandList1[i] : TakeHandModel.takeHandList2[i]}を取ってください');
+                            },
+                            onLongPress: () {
+                              TextToSpeech.speak(
+                                  '${count % 2 == 0 ? TakeHandModel.takeHandList1[i] : TakeHandModel.takeHandList2[i]}を取ってください');
+                            },
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 15),
@@ -158,7 +164,6 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: InkWell(
-                          // TODO 押した時の処理を追加
                           onTap: () {
                             setState(() {
                               count++;

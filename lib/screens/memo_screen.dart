@@ -88,7 +88,6 @@ class _MemoScreenState extends State<MemoScreen> {
             ),
           ),
           child: InkWell(
-            // TODO 押した時の処理を追加
             onTap: () => tapFunction(),
             onLongPress: () => tapFunction(),
             child: FittedBox(
