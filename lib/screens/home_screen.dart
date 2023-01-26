@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/how_to_tab.dart';
+import './health_management_screen.dart';
+import './drink_screen.dart';
+import './take_hand_screen.dart';
+import './memo_screen.dart';
+import '../widgets/text_to_speech.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const routeName = '/home';
   const HomeScreen({super.key});
 
   @override
@@ -13,7 +18,8 @@ class HomeScreen extends StatelessWidget {
     final deviceWidth = MediaQuery.of(context).size.width;
     final cardHeight = deviceHeight * 0.85 * 0.16;
 
-    Widget onGenerateCard(Color color, String titleText) {
+    Widget onGenerateCard(
+        Color color, String titleText, VoidCallback tapFunction) {
       return SizedBox(
         height: cardHeight,
         child: Card(
@@ -26,9 +32,8 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           child: InkWell(
-            // TODO 押した時の処理を追加
-            onTap: () {},
-            onLongPress: () {},
+            onTap: () => tapFunction(),
+            onLongPress: () => tapFunction(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Row(
@@ -59,7 +64,7 @@ class HomeScreen extends StatelessWidget {
       );
     }
 
-    Widget onGenerateTabCard(String titleText) {
+    Widget onGenerateTabCard(String titleText, VoidCallback tapFunction) {
       return SizedBox(
         height: deviceHeight * 0.1,
         width: deviceWidth * 0.4,
@@ -69,9 +74,8 @@ class HomeScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: InkWell(
-            // TODO 押した時の処理を追加
-            onTap: () {},
-            onLongPress: () {},
+            onTap: () => tapFunction(),
+            onLongPress: () => tapFunction(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Row(
@@ -120,12 +124,60 @@ class HomeScreen extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      onGenerateCard(Colors.pinkAccent, 'ありがとう'),
-                      onGenerateCard(Colors.blue, 'トイレ'),
-                      onGenerateCard(Colors.red, 'つらい'),
-                      onGenerateCard(Colors.blue[300]!, '飲みたい'),
-                      onGenerateCard(Colors.orange, '暑い/寒い'),
-                      onGenerateCard(Colors.greenAccent, '取って!'),
+                      onGenerateCard(
+                        Colors.pinkAccent,
+                        'ありがとう',
+                        () {
+                          TextToSpeech.speak('ありがとうございます');
+                        },
+                      ),
+                      onGenerateCard(
+                        Colors.blue,
+                        'トイレ',
+                        () {
+                          TextToSpeech.speak('トイレに連れて行ってください');
+                        },
+                      ),
+                      onGenerateCard(
+                        Colors.red,
+                        'つらい',
+                        () {
+                          TextToSpeech.speak('どうされましたか?');
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                            HealthManagementScreen.routeName,
+                            (route) => false,
+                          );
+                        },
+                      ),
+                      onGenerateCard(
+                        Colors.blue[300]!,
+                        '飲みたい',
+                        () {
+                          TextToSpeech.speak('何を飲みたいですか?');
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                            DrinkScreen.routeName,
+                            (route) => false,
+                          );
+                        },
+                      ),
+                      onGenerateCard(
+                        Colors.orange,
+                        '暑い/寒い',
+                        () {
+                          TextToSpeech.speak('気温を調整してください');
+                        },
+                      ),
+                      onGenerateCard(
+                        Colors.greenAccent,
+                        '取って!',
+                        () {
+                          TextToSpeech.speak('何が欲しいですか?');
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                            TakeHandScreen.routeName,
+                            (route) => false,
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ],
@@ -139,8 +191,11 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    onGenerateTabCard('使い方'),
-                    onGenerateTabCard('手書き'),
+                    onGenerateTabCard('使い方', /*TODO 処理を追加*/ () {}),
+                    onGenerateTabCard('手書き', () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          MemoScreen.routeName, (route) => false);
+                    }),
                   ],
                 ),
               ),
