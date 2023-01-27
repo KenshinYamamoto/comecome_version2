@@ -7,6 +7,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import '../models/select_color_model.dart';
 import './home_screen.dart';
 import '../widgets/inc.dart';
+import '../widgets/generate_icon.dart';
 
 class MemoScreen extends StatefulWidget {
   static const routeName = '/memo';
@@ -75,7 +76,8 @@ class _MemoScreenState extends State<MemoScreen> {
         MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     final deviceWidth = MediaQuery.of(context).size.width;
 
-    Widget generateOptionCard(String text, VoidCallback tapFunction) {
+    Widget generateOptionCard(
+        String iconPath, String text, VoidCallback tapFunction) {
       return SizedBox(
         height: deviceHeight * 0.08,
         width: deviceHeight * 0.08,
@@ -94,7 +96,12 @@ class _MemoScreenState extends State<MemoScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Icon(Icons.abc),
+                  GenerateIcon(
+                    height: deviceWidth * 0.1,
+                    width: deviceWidth * 0.1,
+                    background: false,
+                    iconPath: iconPath,
+                  ),
                   FittedBox(
                     child: Text(
                       text,
@@ -231,26 +238,46 @@ class _MemoScreenState extends State<MemoScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        generateOptionCard('細い', () {
-                          setState(() {
-                            _controller.thickness = 5;
-                          });
-                        }),
-                        generateOptionCard('太い', () {
-                          setState(() {
-                            _controller.thickness = 15;
-                          });
-                        }),
-                        generateOptionCard('戻す', () {
-                          if (_controller.isEmpty) return;
-                          _controller.undo();
-                        }),
-                        generateOptionCard('全消し', () => _controller.clear()),
-                        generateOptionCard('消ゴム', () {
-                          setState(() {
-                            _controller.drawColor = Colors.white;
-                          });
-                        }),
+                        generateOptionCard(
+                          'assets/images/MemoScreen/thin_pen_icon.png',
+                          '細い',
+                          () {
+                            setState(() {
+                              _controller.thickness = 5;
+                            });
+                          },
+                        ),
+                        generateOptionCard(
+                          'assets/images/MemoScreen/thick_pen_icon.png',
+                          '太い',
+                          () {
+                            setState(() {
+                              _controller.thickness = 15;
+                            });
+                          },
+                        ),
+                        generateOptionCard(
+                          'assets/images/MemoScreen/back_arrow.png',
+                          '戻す',
+                          () {
+                            if (_controller.isEmpty) return;
+                            _controller.undo();
+                          },
+                        ),
+                        generateOptionCard(
+                          'assets/images/MemoScreen/clear_icon.png',
+                          '全消し',
+                          () => _controller.clear(),
+                        ),
+                        generateOptionCard(
+                          'assets/images/MemoScreen/eraser_icon.png',
+                          '消ゴム',
+                          () {
+                            setState(() {
+                              _controller.drawColor = Colors.white;
+                            });
+                          },
+                        ),
                         SizedBox(
                           height: deviceHeight * 0.1,
                           width: deviceWidth * 0.4,
@@ -277,7 +304,13 @@ class _MemoScreenState extends State<MemoScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Icon(Icons.abc), // TODO 画像の表示
+                                    GenerateIcon(
+                                      height: deviceWidth * 0.1,
+                                      width: deviceWidth * 0.1,
+                                      background: false,
+                                      iconPath:
+                                          'assets/images/MemoScreen/home_icon.png',
+                                    ),
                                     FittedBox(
                                       child: Text(
                                         'トップ',

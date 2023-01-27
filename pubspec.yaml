@@ -70,9 +70,28 @@ flutter:
     - assets/images/CommonParts/footer_back.png
     - assets/images/CommonParts/back_color01.png
     - assets/images/HomeScreen/thanks_icon.png
+    - assets/images/HomeScreen/toilet_icon.png
+    - assets/images/HomeScreen/pain_icon.png
+    - assets/images/HomeScreen/cold_drink_icon.png
+    - assets/images/HomeScreen/heating_icon.png
+    - assets/images/HomeScreen/hand_icon.png
+    - assets/images/HealthManagementScreen/stethoscope.png
+    - assets/images/HotDrinkScreen/hot_drink_icon.png
+    - assets/images/HotDrinkScreen/cold_drink_icon.png
+    - assets/images/Logos/comecome_logo.png
     - assets/images/ColdDrinkScreen/back_color02.png
+    - assets/images/ColdDrinkScreen/cold_drink_icon.png
+    - assets/images/ColdDrinkScreen/hot_drink_icon.png
     - assets/images/HealthManagementScreen/back_color03.png
-    # - assets/images/
+    - assets/images/MemoScreen/home_icon.png
+    - assets/images/CommonParts/human_icon.png
+    - assets/images/CommonParts/memo_icon.png
+    - assets/images/TakeHand1Screen/logo_icon.png
+    - assets/images/MemoScreen/thin_pen_icon.png
+    - assets/images/MemoScreen/thick_pen_icon.png
+    - assets/images/MemoScreen/clear_icon.png
+    - assets/images/MemoScreen/eraser_icon.png
+    - assets/images/MemoScreen/back_arrow.png
 
     # - assets/images/HomeScreen/top_header.png
 

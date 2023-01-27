@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/bottom_tab.dart';
 import '../models/drink_model.dart';
 import '../widgets/text_to_speech.dart';
+import '../widgets/generate_icon.dart';
 
 class DrinkScreen extends StatefulWidget {
   static const routeName = '/drink';
@@ -25,7 +26,19 @@ class _DrinkScreenState extends State<DrinkScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.abc), // TODO 画像の表示
+        leading: count % 2 == 0
+            ? GenerateIcon(
+                height: deviceWidth * 0.1,
+                width: deviceWidth * 0.1,
+                background: false,
+                iconPath: 'assets/images/HotDrinkScreen/hot_drink_icon.png',
+              )
+            : GenerateIcon(
+                height: deviceWidth * 0.1,
+                width: deviceWidth * 0.1,
+                background: false,
+                iconPath: 'assets/images/ColdDrinkScreen/cold_drink_icon.png',
+              ),
         title: Text(
           count % 2 == 0 ? '温かい飲み物' : '冷たい飲み物',
           style: const TextStyle(
@@ -34,23 +47,24 @@ class _DrinkScreenState extends State<DrinkScreen> {
           ),
         ),
         backgroundColor: count % 2 == 0 ? Colors.red : Colors.blue,
-        actions: const [
-          Icon(Icons.abc), // TODO 画像の表示
+        actions: [
+          GenerateIcon(
+            height: deviceWidth * 0.1,
+            width: deviceWidth * 0.12,
+            background: false,
+            iconPath: 'assets/images/Logos/comecome_logo.png',
+          ),
         ],
       ),
       body: Stack(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: count % 2 == 0
-                    ? const AssetImage(
-                        'assets/images/CommonParts/back_color01.png')
-                    : const AssetImage(
-                        'assets/images/ColdDrinkScreen/back_color02.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
+          GenerateIcon(
+            height: deviceHeight,
+            width: deviceWidth,
+            background: true,
+            iconPath: count % 2 == 0
+                ? 'assets/images/CommonParts/back_color01.png'
+                : 'assets/images/ColdDrinkScreen/back_color02.png',
           ),
           Column(
             children: [
@@ -90,7 +104,21 @@ class _DrinkScreenState extends State<DrinkScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Icon(Icons.abc), // TODO 画像の表示
+                                  count % 2 == 0
+                                      ? GenerateIcon(
+                                          height: deviceWidth * 0.1,
+                                          width: deviceWidth * 0.1,
+                                          background: false,
+                                          iconPath:
+                                              'assets/images/ColdDrinkScreen/hot_drink_icon.png',
+                                        )
+                                      : GenerateIcon(
+                                          height: deviceWidth * 0.1,
+                                          width: deviceWidth * 0.1,
+                                          background: false,
+                                          iconPath:
+                                              'assets/images/HomeScreen/cold_drink_icon.png',
+                                        ),
                                   FittedBox(
                                     child: Text(
                                       count % 2 == 0
@@ -144,23 +172,41 @@ class _DrinkScreenState extends State<DrinkScreen> {
                               count++;
                             });
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Icon(Icons.abc), // TODO 画像の表示
-                                FittedBox(
-                                  child: Text(
-                                    count % 2 == 0 ? '冷たい' : '温かい',
-                                    style: TextStyle(
-                                      fontSize: deviceHeight * 0.03,
-                                      fontWeight: FontWeight.bold,
+                          child: FittedBox(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  count % 2 == 0
+                                      ? GenerateIcon(
+                                          height: deviceWidth * 0.1,
+                                          width: deviceWidth * 0.1,
+                                          background: false,
+                                          iconPath:
+                                              'assets/images/HotDrinkScreen/cold_drink_icon.png',
+                                        )
+                                      : GenerateIcon(
+                                          height: deviceWidth * 0.1,
+                                          width: deviceWidth * 0.1,
+                                          background: false,
+                                          iconPath:
+                                              'assets/images/ColdDrinkScreen/hot_drink_icon.png',
+                                        ),
+                                  FittedBox(
+                                    child: Text(
+                                      count % 2 == 0 ? '冷たい' : '温かい',
+                                      style: TextStyle(
+                                        fontSize: deviceHeight * 0.03,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const Icon(Icons.arrow_forward_ios),
-                              ],
+                                  const Icon(Icons.arrow_forward_ios),
+                                ],
+                              ),
                             ),
                           ),
                         ),

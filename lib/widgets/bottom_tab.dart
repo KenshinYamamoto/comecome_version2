@@ -21,7 +21,8 @@ class BottomTab extends StatelessWidget {
 
     final deviceWidth = MediaQuery.of(receivedContext).size.width;
 
-    Widget onGenerateTabCard(String titleText, VoidCallback tapFunction) {
+    Widget onGenerateTabCard(
+        String iconPath, String titleText, VoidCallback tapFunction) {
       return SizedBox(
         height: deviceHeight * 0.1,
         width: deviceWidth * 0.4,
@@ -38,7 +39,23 @@ class BottomTab extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.abc), // TODO 画像の表示
+                  FittedBox(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Container(
+                        height: deviceWidth * 0.1,
+                        width: deviceWidth * 0.1,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              iconPath,
+                            ),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                   FittedBox(
                     child: Text(
                       titleText,
@@ -71,14 +88,20 @@ class BottomTab extends StatelessWidget {
                 children: [
                   showTopPage
                       ? onGenerateTabCard(
+                          'assets/images/MemoScreen/home_icon.png',
                           'トップ',
                           () {
                             Navigator.of(context).pushNamedAndRemoveUntil(
                                 HomeScreen.routeName, (route) => false);
                           },
                         )
-                      : onGenerateTabCard('使い方', () {}),
+                      : onGenerateTabCard(
+                          'assets/images/CommonParts/memo_icon.png',
+                          '使い方',
+                          () {},
+                        ),
                   onGenerateTabCard(
+                    'assets/images/CommonParts/human_icon.png',
                     '手書き',
                     () {
                       Navigator.of(context).pushNamedAndRemoveUntil(

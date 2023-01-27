@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/health_management_model.dart';
 import '../widgets/text_to_speech.dart';
 import '../widgets/bottom_tab.dart';
+import '../widgets/generate_icon.dart';
 
 class HealthManagementScreen extends StatelessWidget {
   static const routeName = '/health-management';
@@ -50,27 +51,35 @@ class HealthManagementScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.abc), // TODO 画像の表示
+        leading: const Padding(
+          padding: EdgeInsets.all(5),
+          child: FittedBox(
+            child: Icon(
+              Icons.help,
+            ),
+          ),
+        ),
         title: const Text(
           'どうされましたか?',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
-        actions: const [
-          Icon(Icons.abc), // TODO 画像の表示
+        actions: [
+          GenerateIcon(
+            height: deviceWidth * 0.2,
+            width: deviceWidth * 0.2,
+            background: false,
+            iconPath: 'assets/images/HealthManagementScreen/stethoscope.png',
+          ),
         ],
         backgroundColor: Colors.green.shade200,
       ),
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  'assets/images/HealthManagementScreen/back_color03.png',
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
+          GenerateIcon(
+            height: deviceHeight,
+            width: deviceWidth,
+            background: true,
+            iconPath: 'assets/images/HealthManagementScreen/back_color03.png',
           ),
           Column(
             children: [
