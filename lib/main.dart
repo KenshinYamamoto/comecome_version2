@@ -1,6 +1,7 @@
-import 'package:comecome_version2/screens/home_screen.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
+import './screens/home_screen.dart';
 import './screens/title_screen.dart';
 import './screens/take_hand_screen.dart';
 import './screens/drink_screen.dart';
@@ -8,6 +9,13 @@ import './screens/health_management_screen.dart';
 import './screens/memo_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ],
+  );
   runApp(const MyApp());
 }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './home_screen.dart';
+import '../widgets/generate_icon.dart';
 
 class TitleScreen extends StatefulWidget {
   const TitleScreen({super.key});
@@ -71,17 +72,14 @@ class _TitleScreenState extends State<TitleScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final deviceHeight = MediaQuery.of(context).size.height;
+    final deviceWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Colors.black,
-          image: DecorationImage(
-            image: AssetImage(
-              'assets/images/TitleScreen/loading_screen.png',
-            ),
-            fit: BoxFit.contain,
-          ),
-        ),
+      body: GenerateIcon(
+        height: deviceHeight,
+        width: deviceWidth,
+        background: true,
+        iconPath: 'assets/images/TitleScreen/loading_screen.png',
       ),
     );
   }

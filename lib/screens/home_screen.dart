@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-import './health_management_screen.dart';
-import './drink_screen.dart';
-import './take_hand_screen.dart';
 import '../widgets/text_to_speech.dart';
 import '../widgets/bottom_tab.dart';
+import '../widgets/generate_icon.dart';
+import '../models/home_widgets_model.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
@@ -15,10 +14,11 @@ class HomeScreen extends StatelessWidget {
     final deviceHeight = MediaQuery.of(context).size.height -
         AppBar().preferredSize.height -
         MediaQuery.of(context).padding.top;
+    final deviceWidth = MediaQuery.of(context).size.width;
     final cardHeight = deviceHeight * 0.85 * 0.16;
 
-    Widget onGenerateCard(
-        Color color, String titleText, VoidCallback tapFunction) {
+    Widget onGenerateCard(String iconPath, Color color, String titleText,
+        VoidCallback tapFunction) {
       return SizedBox(
         height: cardHeight,
         child: Card(
@@ -38,17 +38,12 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: cardHeight * 0.7,
-                    width: cardHeight * 0.7,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                            'assets/images/HomeScreen/thanks_icon.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ), // TODO 画像の表示
+                  GenerateIcon(
+                    height: cardHeight * 0.5,
+                    width: cardHeight * 0.5,
+                    background: false,
+                    iconPath: iconPath,
+                  ),
                   FittedBox(
                     child: Text(
                       titleText,
@@ -78,90 +73,52 @@ class HomeScreen extends StatelessWidget {
         title: const Text('HomeScreen'),
         backgroundColor: Colors.deepOrange[300],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            SizedBox(
-              height: deviceHeight * 0.85,
-              child: Stack(
-                children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                            'assets/images/CommonParts/back_color01.png'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
+      body: Stack(
+        children: [
+          GenerateIcon(
+            height: deviceHeight,
+            width: deviceWidth,
+            background: true,
+            iconPath: 'assets/images/CommonParts/back_color01.png',
+          ),
+          Column(
+            children: [
+              SizedBox(
+                height: deviceHeight * 0.85,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    for (int i = 0;
+                        i < HomeWidgetsModel.homeWidgets.length;
+                        i++) ...{
                       onGenerateCard(
-                        Colors.pinkAccent,
-                        'ありがとう',
+                        HomeWidgetsModel.homeWidgets[i]['iconPath'],
+                        HomeWidgetsModel.homeWidgets[i]['color'],
+                        HomeWidgetsModel.homeWidgets[i]['title'],
                         () {
-                          TextToSpeech.speak('ありがとうございます');
+                          TextToSpeech.speak(
+                              HomeWidgetsModel.homeWidgets[i]['speakText']);
+                          try {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                              HomeWidgetsModel.homeWidgets[i]['routeName'],
+                              (route) => false,
+                            );
+                          } catch (_) {
+                            return;
+                          }
                         },
                       ),
-                      onGenerateCard(
-                        Colors.blue,
-                        'トイレ',
-                        () {
-                          TextToSpeech.speak('トイレに連れて行ってください');
-                        },
-                      ),
-                      onGenerateCard(
-                        Colors.red,
-                        'つらい',
-                        () {
-                          TextToSpeech.speak('どうされましたか?');
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            HealthManagementScreen.routeName,
-                            (route) => false,
-                          );
-                        },
-                      ),
-                      onGenerateCard(
-                        Colors.blue[300]!,
-                        '飲みたい',
-                        () {
-                          TextToSpeech.speak('何を飲みたいですか?');
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            DrinkScreen.routeName,
-                            (route) => false,
-                          );
-                        },
-                      ),
-                      onGenerateCard(
-                        Colors.orange,
-                        '暑い/寒い',
-                        () {
-                          TextToSpeech.speak('気温を調整してください');
-                        },
-                      ),
-                      onGenerateCard(
-                        Colors.greenAccent,
-                        '取って!',
-                        () {
-                          TextToSpeech.speak('何が欲しいですか?');
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            TakeHandScreen.routeName,
-                            (route) => false,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                    },
+                  ],
+                ),
               ),
-            ),
-            BottomTab(
-              receivedContext: context,
-              showTopPage: false,
-            ),
-          ],
-        ),
+              BottomTab(
+                receivedContext: context,
+                showTopPage: false,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/take_hand_model.dart';
 import '../widgets/text_to_speech.dart';
 import '../widgets/bottom_tab.dart';
+import '../widgets/generate_icon.dart';
 
 class TakeHandScreen extends StatefulWidget {
   static const routeName = '/take-hand';
@@ -24,7 +25,12 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.abc), // TODO 画像の表示
+        leading: GenerateIcon(
+          height: deviceWidth * 0.2,
+          width: deviceWidth * 0.25,
+          background: false,
+          iconPath: 'assets/images/TakeHand1Screen/logo_icon.png',
+        ),
         title: Text(
           count % 2 == 0 ? '取って欲しい①' : '取って欲しい②',
           style: const TextStyle(
@@ -33,19 +39,22 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
           ),
         ),
         backgroundColor: Colors.deepOrange[300],
-        actions: const [
-          Icon(Icons.abc), // TODO 画像の表示
+        actions: [
+          GenerateIcon(
+            height: deviceWidth * 0.1,
+            width: deviceWidth * 0.12,
+            iconPath: 'assets/images/Logos/comecome_logo.png',
+            background: false,
+          ),
         ],
       ),
       body: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/CommonParts/back_color01.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
+          GenerateIcon(
+            height: deviceHeight,
+            width: deviceWidth,
+            background: true,
+            iconPath: 'assets/images/CommonParts/back_color01.png',
           ),
           Column(
             children: [
@@ -83,7 +92,13 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Icon(Icons.abc), // TODO 画像の表示
+                                  GenerateIcon(
+                                    height: deviceWidth * 0.1,
+                                    width: deviceWidth * 0.1,
+                                    background: false,
+                                    iconPath:
+                                        'assets/images/HomeScreen/hand_icon.png',
+                                  ),
                                   FittedBox(
                                     child: Text(
                                       count % 2 == 0
@@ -139,21 +154,30 @@ class _TakeHandScreenState extends State<TakeHandScreen> {
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Icon(Icons.abc), // TODO 画像の表示
-                                FittedBox(
-                                  child: Text(
-                                    count % 2 == 0 ? '次へ' : '前へ',
-                                    style: TextStyle(
-                                      fontSize: deviceHeight * 0.03,
-                                      fontWeight: FontWeight.bold,
+                            child: FittedBox(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GenerateIcon(
+                                    height: deviceWidth * 0.1,
+                                    width: deviceWidth * 0.1,
+                                    background: false,
+                                    iconPath:
+                                        'assets/images/HomeScreen/hand_icon.png',
+                                  ),
+                                  FittedBox(
+                                    child: Text(
+                                      count % 2 == 0 ? '次へ' : '前へ',
+                                      style: TextStyle(
+                                        fontSize: deviceHeight * 0.03,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const Icon(Icons.arrow_forward_ios),
-                              ],
+                                  const Icon(Icons.arrow_forward_ios),
+                                ],
+                              ),
                             ),
                           ),
                         ),
