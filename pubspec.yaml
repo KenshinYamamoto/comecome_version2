@@ -72,6 +72,7 @@ flutter:
     - assets/images/HomeScreen/thanks_icon.png
     - assets/images/ColdDrinkScreen/back_color02.png
     - assets/images/HealthManagementScreen/back_color03.png
+    # - assets/images/
 
     # - assets/images/HomeScreen/top_header.png
 

@@ -4,6 +4,7 @@ class TextToSpeech {
   static Future<void> speak(String speakText) async {
     final FlutterTts flutterTts = FlutterTts();
 
+    await flutterTts.stop();
     await flutterTts.setLanguage('ja-JP');
     await flutterTts.setSpeechRate(0.5);
     await flutterTts.setVolume(1.0);

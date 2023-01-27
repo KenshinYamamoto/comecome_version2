@@ -6,6 +6,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import '../models/select_color_model.dart';
 import './home_screen.dart';
+import '../widgets/inc.dart';
 
 class MemoScreen extends StatefulWidget {
   static const routeName = '/memo';
@@ -70,9 +71,8 @@ class _MemoScreenState extends State<MemoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final deviceHeight = MediaQuery.of(context).size.height -
-        AppBar().preferredSize.height -
-        MediaQuery.of(context).padding.top;
+    final deviceHeight =
+        MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top;
     final deviceWidth = MediaQuery.of(context).size.width;
 
     Widget generateOptionCard(String text, VoidCallback tapFunction) {
@@ -95,11 +95,13 @@ class _MemoScreenState extends State<MemoScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   const Icon(Icons.abc),
-                  Text(
-                    text,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      // fontSize: deviceWidth * 0.03,
+                  FittedBox(
+                    child: Text(
+                      text,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: deviceWidth * 0.03,
+                      ),
                     ),
                   ),
                 ],
@@ -153,175 +155,153 @@ class _MemoScreenState extends State<MemoScreen> {
       ];
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Painter Example'),
-        // actions: actions,
-        // bottom: PreferredSize(
-        //   child: DrawBar(_controller),
-        //   preferredSize: Size(MediaQuery.of(context).size.width, 30.0),
-        // ),
-      ),
-      body: Container(
-        color: Colors.deepOrange[300],
-        child: Column(
-          children: [
-            SizedBox(
-              height: deviceHeight * 0.77,
-              child: Padding(
-                padding: const EdgeInsets.all(5),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 3,
-                    ),
-                  ),
-                  child: AspectRatio(
-                    aspectRatio: 1.0,
-                    child: Painter(_controller),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: deviceHeight * 0.1,
-              child: FittedBox(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    for (int i = 0;
-                        i < SelectColorModel.colors.length;
-                        i++) ...{
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              _controller.drawColor =
-                                  SelectColorModel.colors[i];
-                            });
-                          },
-                          onLongPress: () {
-                            setState(() {
-                              _controller.drawColor =
-                                  SelectColorModel.colors[i];
-                            });
-                          },
-                          child: Container(
-                            height: deviceHeight * 0.1,
-                            width: deviceHeight * 0.1,
-                            color: SelectColorModel.colors[i],
-                            child: Icon(
-                              _controller.drawColor ==
-                                      SelectColorModel.colors[i]
-                                  ? Icons.check
-                                  : null,
-                              color: Colors.white,
-                              size: deviceHeight * 0.07,
-                            ),
-                          ),
-                        ),
-                      ),
-                    }
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: deviceHeight * 0.1,
-              child: FittedBox(
+      body: SafeArea(
+        bottom: false,
+        child: Container(
+          color: Colors.deepOrange[300],
+          child: Column(
+            children: [
+              SizedBox(
+                height: deviceHeight * 0.77,
                 child: Padding(
                   padding: const EdgeInsets.all(5),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 3,
+                      ),
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: 1.0,
+                      child: Painter(_controller),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: deviceHeight * 0.1,
+                child: FittedBox(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      generateOptionCard('細い', () {
-                        setState(() {
-                          _controller.thickness = 5;
-                        });
-                      }),
-                      generateOptionCard('太い', () {
-                        setState(() {
-                          _controller.thickness = 15;
-                        });
-                      }),
-                      generateOptionCard('戻す', () {
-                        if (_controller.isEmpty) return;
-                        _controller.undo();
-                      }),
-                      generateOptionCard('全消し', () => _controller.clear()),
-                      generateOptionCard('消ゴム', () {
-                        setState(() {
-                          _controller.drawColor = Colors.white;
-                        });
-                      }),
-                      SizedBox(
-                        height: deviceHeight * 0.1,
-                        width: deviceWidth * 0.4,
-                        child: Card(
-                          elevation: 5,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                      for (int i = 0;
+                          i < SelectColorModel.colors.length;
+                          i++) ...{
+                        Padding(
+                          padding: const EdgeInsets.all(5),
                           child: InkWell(
-                            onTap: () =>
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                              HomeScreen.routeName,
-                              (route) => false,
-                            ),
-                            onLongPress: () =>
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                              HomeScreen.routeName,
-                              (route) => false,
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(Icons.abc), // TODO 画像の表示
-                                  FittedBox(
-                                    child: Text(
-                                      'トップ',
-                                      style: TextStyle(
-                                        fontSize: deviceHeight * 0.03,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  const Icon(Icons.arrow_forward_ios),
-                                ],
+                            onTap: () {
+                              setState(() {
+                                _controller.drawColor =
+                                    SelectColorModel.colors[i];
+                              });
+                            },
+                            onLongPress: () {
+                              setState(() {
+                                _controller.drawColor =
+                                    SelectColorModel.colors[i];
+                              });
+                            },
+                            child: Container(
+                              height: deviceHeight * 0.1,
+                              width: deviceHeight * 0.1,
+                              color: SelectColorModel.colors[i],
+                              child: Icon(
+                                _controller.drawColor ==
+                                        SelectColorModel.colors[i]
+                                    ? Icons.check
+                                    : null,
+                                color: Colors.white,
+                                size: deviceHeight * 0.07,
                               ),
                             ),
                           ),
                         ),
-                      ),
+                      }
                     ],
                   ),
                 ),
               ),
-            ),
-            Container(
-              height: deviceHeight * 0.03,
-              color: Colors.deepOrange[300],
-              child: const Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 35),
-                  child: Text(
-                    'produced by comecome',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,
+              SizedBox(
+                height: deviceHeight * 0.1,
+                child: FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        generateOptionCard('細い', () {
+                          setState(() {
+                            _controller.thickness = 5;
+                          });
+                        }),
+                        generateOptionCard('太い', () {
+                          setState(() {
+                            _controller.thickness = 15;
+                          });
+                        }),
+                        generateOptionCard('戻す', () {
+                          if (_controller.isEmpty) return;
+                          _controller.undo();
+                        }),
+                        generateOptionCard('全消し', () => _controller.clear()),
+                        generateOptionCard('消ゴム', () {
+                          setState(() {
+                            _controller.drawColor = Colors.white;
+                          });
+                        }),
+                        SizedBox(
+                          height: deviceHeight * 0.1,
+                          width: deviceWidth * 0.4,
+                          child: Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: InkWell(
+                              onTap: () =>
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                HomeScreen.routeName,
+                                (route) => false,
+                              ),
+                              onLongPress: () =>
+                                  Navigator.of(context).pushNamedAndRemoveUntil(
+                                HomeScreen.routeName,
+                                (route) => false,
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Icon(Icons.abc), // TODO 画像の表示
+                                    FittedBox(
+                                      child: Text(
+                                        'トップ',
+                                        style: TextStyle(
+                                          fontSize: deviceHeight * 0.03,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    const Icon(Icons.arrow_forward_ios),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+              Inc(deviceHeight: deviceHeight),
+            ],
+          ),
         ),
       ),
     );

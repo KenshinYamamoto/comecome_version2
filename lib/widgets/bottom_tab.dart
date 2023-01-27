@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../screens/home_screen.dart';
 import '../screens/memo_screen.dart';
+import './inc.dart';
 
 class BottomTab extends StatelessWidget {
   final BuildContext receivedContext;
@@ -88,24 +89,7 @@ class BottomTab extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            height: deviceHeight * 0.03,
-            color: Colors.deepOrange[300],
-            child: const Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 35),
-                child: Text(
-                  'produced by comecome',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ),
-            ),
-          )
+          Inc(deviceHeight: deviceHeight),
         ],
       ),
     );

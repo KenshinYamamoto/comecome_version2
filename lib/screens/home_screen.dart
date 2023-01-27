@@ -38,7 +38,17 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Icon(Icons.abc), // TODO 画像の表示
+                  Container(
+                    height: cardHeight * 0.7,
+                    width: cardHeight * 0.7,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                            'assets/images/HomeScreen/thanks_icon.png'),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ), // TODO 画像の表示
                   FittedBox(
                     child: Text(
                       titleText,

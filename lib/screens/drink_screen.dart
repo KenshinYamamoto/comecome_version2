@@ -14,6 +14,7 @@ class DrinkScreen extends StatefulWidget {
 
 class _DrinkScreenState extends State<DrinkScreen> {
   int count = 0;
+  bool isPlaying = false;
 
   @override
   Widget build(BuildContext context) {
